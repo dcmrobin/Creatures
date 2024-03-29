@@ -278,7 +278,7 @@ MonoBehaviour:
   home: {fileID: 1697021267}
   firstBodySegment: {fileID: 1479844402}
   range: 50
-  speed: 40
+  speed: 30
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
