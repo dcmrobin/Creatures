@@ -4,19 +4,41 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 10;
-    Vector2 rotation = Vector2.zero;
-	public float mouseSensitivity = 3;
+    public float moveSpeed = 10f;
+    public float mouseSensitivity = 3f;
+    private float verticalRotation = 0f;
+    private Rigidbody rb;
 
-    private void Update() {
+    private void Start() {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        HandlePlayerMovement();
+        HandleMouseLook();
+    }
+
+    void HandleMouseLook()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        verticalRotation -= mouseY;
+        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
+
+        transform.Rotate(Vector3.up * mouseX);
+        Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+    }
+
+    void HandlePlayerMovement()
+    {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        transform.position += new Vector3(-vertical, 0, horizontal) * speed;
 
-        rotation.y += Input.GetAxis("Mouse X");
-        rotation.x += -Input.GetAxis("Mouse Y");
-        rotation.x = Mathf.Clamp(rotation.x, -15f, 15f);
-        transform.eulerAngles = new Vector2(0,rotation.y) * mouseSensitivity;
-        Camera.main.transform.localRotation = Quaternion.Euler(rotation.x * mouseSensitivity, 0, 0);
+        Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        Vector3 moveVelocity = transform.TransformDirection(moveDirection) * moveSpeed;
+
+        rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
     }
 }
