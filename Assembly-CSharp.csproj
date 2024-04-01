@@ -43,6 +43,7 @@
      <Compile Include="Assets\Scripts\Worm.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Body.cs" />
+     <Compile Include="Assets\Scripts\Leg.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

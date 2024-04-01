@@ -32,7 +32,7 @@ public class Body : MonoBehaviour
             dead = true;
             GetComponent<Rigidbody>().isKinematic = false;
         }
-        else if (target.parent.GetComponent<Body>() != null?target.parent.GetComponent<Body>().dead:target.parent.GetComponent<Worm>().dead)
+        else if (target.parent.GetComponent<Body>() != null ? target.parent.GetComponent<Body>().dead : target.parent.GetComponent<Worm>() != null ? target.parent.GetComponent<Worm>().dead : dead)
         {
             dead = true;
             GetComponent<Rigidbody>().isKinematic = false;
