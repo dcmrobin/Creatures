@@ -7,7 +7,7 @@ using UnityEngine.Animations;
 public class Body : MonoBehaviour
 {
     public Transform target;
-    public float rigidity = 3;
+    public float rigidity = 20;
     public bool dead;
 
     private void Update() {

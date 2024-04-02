@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public float moveSpeed = 10f;
     public float mouseSensitivity = 3f;
+    public Transform cameraPivot;
     private float verticalRotation = 0f;
     private Rigidbody rb;
 
@@ -28,7 +29,7 @@ public class Player : MonoBehaviour
         verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
 
         transform.Rotate(Vector3.up * mouseX);
-        Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+        cameraPivot.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
     }
 
     void HandlePlayerMovement()
