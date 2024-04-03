@@ -19,10 +19,13 @@ public class InverseKinematics : MonoBehaviour
         for (int i = 1; i < bones.Length; i++)
         {
             bones[i].transform.LookAt(bones[i-1].transform.GetChild(0));
-            bones[i].transform.position += bones[i].transform.forward;
+            if (Vector3.Distance(bones[i].transform.position, bones[i-1].transform.GetChild(0).position) > boneLength / 1.5)
+            {
+                bones[i].transform.position += bones[i].transform.forward;
+            }
         }
 
-        if (Vector3.Distance(bones[0].transform.position, target.position) > boneLength / 2)
+        if (Vector3.Distance(bones[0].transform.position, target.position) > boneLength / 1.5)
         {
             bones[0].transform.position += bones[0].transform.forward;
         }
