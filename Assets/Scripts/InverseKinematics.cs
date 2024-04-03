@@ -8,6 +8,8 @@ public class InverseKinematics : MonoBehaviour
     public float boneLength;
     public float limbLength;
     public Transform target;
+    public Transform point;
+    public int iterations = 10;
 
     private void Start() {
         boneLength = bones[0].transform.localScale.z;
@@ -16,18 +18,27 @@ public class InverseKinematics : MonoBehaviour
 
     private void Update() {
         bones[0].transform.LookAt(target);
-        for (int i = 1; i < bones.Length; i++)
-        {
-            bones[i].transform.LookAt(bones[i-1].transform.GetChild(0));
-            if (Vector3.Distance(bones[i].transform.position, bones[i-1].transform.GetChild(0).position) > boneLength / 1.5)
-            {
-                bones[i].transform.position += bones[i].transform.forward;
-            }
-        }
 
-        if (Vector3.Distance(bones[0].transform.position, target.position) > boneLength / 1.5)
-        {
-            bones[0].transform.position += bones[0].transform.forward;
-        }
+        //for (int i = 0; i < iterations; i++)
+        //{
+            for (int b = 1; b < bones.Length; b++)
+            {
+                bones[b].transform.LookAt(bones[b-1].transform.GetChild(0));
+                if (Vector3.Distance(bones[b].transform.position, bones[b-1].transform.GetChild(0).position) > boneLength / 1.5)
+                {
+                    bones[b].transform.position += bones[b].transform.forward;
+                }
+            }
+
+            if (Vector3.Distance(bones[0].transform.position, target.position) > boneLength / 1.5)
+            {
+                bones[0].transform.position += bones[0].transform.forward;
+            }
+
+            //if (Vector3.Distance(bones[^1].transform.position, point.position) < 0.001)
+            //{
+            //    break;
+            //}
+        //}
     }
 }
